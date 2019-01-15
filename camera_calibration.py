@@ -108,11 +108,11 @@ def create_camera_pickle(calibration_folder=CALIBRATION_FOLDER,
     img_size = (camera_image_shape[1], camera_image_shape[0])
     ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, img_size, None, None)
     calibration_params = dict(
-        ret = ret,
-        mtx = mtx,
-        dist = dist,
-        rvecs = rvecs,
-        tvecs = tvecs,
+        ret=ret,
+        mtx=mtx,
+        dist=dist,
+        rvecs=rvecs,
+        tvecs=tvecs,
     )
     camera_pickle = { key: calibration_params[key] for key in camera_properties }
     with open(camera_pickle_filepath, "wb") as fd:
@@ -150,11 +150,10 @@ def main(image_filenames,
             cv2.imshow("img", img)
             cv2.waitKey(150)
 
-            # TODO: MXT != MTX
-            mxt = camera_pickle["mtx"]
+            mtx = camera_pickle["mtx"]
             dist = camera_pickle["dist"]
 
-            dst = cv2.undistort(img, mxt, dist, None, mxt)
+            dst = cv2.undistort(img, mtx, dist, None, mtx)
 
             cv2.imshow("dst", dst)
             cv2.waitKey(150)
