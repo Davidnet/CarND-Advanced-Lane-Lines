@@ -60,6 +60,14 @@ class Lane(object):
         # return np.amax(curvature)
         return np.mean(curvature)
 
+    @staticmethod
+    def compute_rad_curv(xvals, yvals):
+        fit_cr = np.polyfit(yvals*Lane.Y_MTS_PER_PIX, xvals*Lane.X_MTS_PER_PIX, 2)
+        y_eval = np.max(yvals)
+        curverad = ((1 + (2*fit_cr[0]*y_eval + fit_cr[1])**2)**1.5) \
+                                     /np.absolute(2*fit_cr[0])
+        return curverad
+
     @property
     def detected(self):
         return self._detected
@@ -114,7 +122,8 @@ class Lane(object):
         y_hist = np.fromiter(chain(w_y, y), dtype=np.int32)
 
         quadratic_lane = np.polyfit(y_hist, x_hist, 2)
-        rad_curvature = self.curvature_splines(x_hist, y_hist)
+        # rad_curvature = self.curvature_splines(x_hist, y_hist)
+        rad_curvature = self.compute_rad_curv(x_hist, y_hist)
 
         if self._radius_curvature is None:
             self._detected = True

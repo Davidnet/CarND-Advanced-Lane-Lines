@@ -54,7 +54,6 @@ def sliding_window(image, left_lane, right_lane, base_pts, num_bands=10, window_
 
     l_x, l_y, r_x, r_y = _generate_candidates(base_pts, band_height, band_width, num_bands)
 
-    
     l_x, l_y = reject_outliers(l_x, l_y)
     r_x, r_y = reject_outliers(r_x, r_y)
 
@@ -83,8 +82,8 @@ def find_perspective_points(image):
                 if all([abs(theta) >= angle_min, abs(theta) <= angle_max]):
 
                     i = 0 if theta > 0 else 1
-                    [lane_markers_x[i].append(coor) for coor in [x1, x2]]
-                    [lane_markers_y[i].append(coor) for coor in [y1, y2]]
+                    _ = [lane_markers_x[i].append(coor) for coor in [x1, x2]]
+                    _ = [lane_markers_y[i].append(coor) for coor in [y1, y2]]
 
         return lane_markers_x, lane_markers_y
 
@@ -244,8 +243,8 @@ def frame_pipeline(frame, camera_properties, cache_length=20):
     results_str = '{} radii of curvature = {:.2f}'
 
     font = cv2.FONT_HERSHEY_TRIPLEX
-    cv2.putText(result, results_str.format("left", left_r), (80, 50), font, 1, (255, 255, 255), 2, cv2.LINE_AA)
-    cv2.putText(result, results_str.format("right", right_r), (80, 80), font, 1, (255, 255, 255), 2, cv2.LINE_AA)
+    cv2.putText(result, results_str.format("left m", left_r), (80, 50), font, 1, (255, 255, 255), 2, cv2.LINE_AA)
+    cv2.putText(result, results_str.format("right m", right_r), (80, 80), font, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
     cv2.putText(result, "Vehicle postion: {:.2f} m {} of center".format(abs(dx), 'left' if dx < 0 else 'right'), (80, 110), font, 1, (255, 255, 255), 2, cv2.LINE_AA)
     is_tracking = left_lane.detected or right_lane.detected

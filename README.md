@@ -151,6 +151,9 @@ I take the mean of these curvatures and I report this as the curvature of the fi
 
 Lines 45 to 61 in the `Lane` class in `lane.py`
 
+**Review 2**: See now lines 64 to 69 in the `Lane` class in `lane.py`. My approach of calculating curvature via splines was not estable nor accurate. My udacity review pinpoint at my mistake, so I decided to take the old routine of assuming a quadratic curve and calculating the curvature.
+
+
 ---
 
 ### Pipeline (video)
@@ -158,8 +161,16 @@ Lines 45 to 61 in the `Lane` class in `lane.py`
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
 
+## First Attempt
 Here's a [link to my video result](https://youtu.be/EqHch__5o7A)
 Youtube link
+
+## Second attempt
+Here's a [link to my video result](https://youtu.be/InOlf8-j8-Q)
+Youtube link
+
+
+
 
 ---
 
